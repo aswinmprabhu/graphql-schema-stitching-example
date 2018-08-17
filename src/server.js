@@ -67,10 +67,10 @@ const makeMergedSchema = async () => {
 };
 
 // serve the merged schema
-makeMergedSchema().then(mergedschema => {
+makeMergedSchema().then(mergedSchema => {
 
   // Create a  new apollo server
-  const server = new ApolloServer({ schema:mergedschema });
+  const server = new ApolloServer({ schema:mergedSchema });
 
   server.listen({port: 3000})
     .then(({ url }) => {
