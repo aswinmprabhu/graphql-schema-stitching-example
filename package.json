@@ -1,0 +1,28 @@
+{
+  "name": "schema-stitching-example-new",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "nodemon ./src/server.js --exec babel-node -e js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-cli": "^6.24.0",
+    "babel-plugin-transform-async-generator-functions": "^6.24.1",
+    "babel-plugin-transform-object-rest-spread": "^6.23.0",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-latest": "^6.23.0",
+    "nodemon": "^1.11.0"
+  },
+  "dependencies": {
+    "apollo-link": "^1.2.2",
+    "apollo-link-http": "^1.5.4",
+    "apollo-server": "^2.0.0",
+    "graphql": "^0.13.2",
+    "graphql-tools": "^3.1.1",
+    "node-fetch": "^2.2.0"
+  }
+}
