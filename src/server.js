@@ -21,17 +21,6 @@ async function makeMergedSchema() {
     link: UserLink,
   });
 
-  // Create a remote executable github schema
-  const GitHubLink = new HttpLink({
-    uri: 'https://api.github.com/graphql',
-    headers: {"Authorization":"bearer <your github token here>"},
-    fetch,
-  })
-  const GitHubSchema = makeRemoteExecutableSchema({
-    schema: await introspectSchema(GitHubLink),
-    link: GitHubLink,
-  });
-
   // Create custom resolvers
   const customResolver = {
     Mutation: {
@@ -57,7 +46,7 @@ async function makeMergedSchema() {
 
   // merge the two schemas
   const mergedSchema = mergeSchemas({
-    schemas: [UserSchema, GitHubSchema],
+    schemas: [UserSchema],
     resolvers: customResolver,
   });
 
