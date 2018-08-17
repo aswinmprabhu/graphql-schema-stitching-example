@@ -9,18 +9,7 @@ import { HttpLink } from 'apollo-link-http';
 // To satisfy Extend peer dependencies
 import 'apollo-link';
 
-async function makeMergedSchema() {
-
-  // Create remote executable user schema
-  const UserLink = new HttpLink({ 
-    uri: 'https://bazookaand.herokuapp.com/v1alpha1/graphql',
-    fetch,
-  });
-  const UserSchema = makeRemoteExecutableSchema({
-    schema: await introspectSchema(UserLink),
-    link: UserLink,
-  });
-
+const makeCustomResolver = (userSchema) => {
   // Create custom resolvers
   const customResolver = {
     Mutation: {
@@ -33,7 +22,7 @@ async function makeMergedSchema() {
         }
         // Delegate after sanitization
         return info.mergeInfo.delegateToSchema({
-          schema: UserSchema,
+          schema: userSchema,
           operation: 'mutation',
           fieldName: 'insert_user',
           args: newArgs,
@@ -43,10 +32,33 @@ async function makeMergedSchema() {
       }
     } 
   };
+  return customResolver;
+};
+
+const createRemoteExecutableSchema = async () => {
+
+  // Create remote executable user schema
+  const userLink = new HttpLink({ 
+    uri: 'https://bazookaand.herokuapp.com/v1alpha1/graphql',
+    fetch,
+  });
+  const userSchema = makeRemoteExecutableSchema({
+    schema: await introspectSchema(userLink),
+    link: userLink,
+  });
+
+  return userSchema;
+
+};
+
+const makeMergedSchema = async () => {
+
+  const userSchema = await createRemoteExecutableSchema();
+  const customResolver = makeCustomResolver(userSchema);
 
   // merge the two schemas
   const mergedSchema = mergeSchemas({
-    schemas: [UserSchema],
+    schemas: [userSchema],
     resolvers: customResolver,
   });
 
