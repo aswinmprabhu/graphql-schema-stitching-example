@@ -24,7 +24,7 @@ async function makeMergedSchema() {
   // Create a remote executable github schema
   const GitHubLink = new HttpLink({
     uri: 'https://api.github.com/graphql',
-    headers: {"Authorization":"bearer 6f9578123afaa1cb5cb8f95d0f2e6e1a5937cc29"},
+    headers: {"Authorization":"bearer <your github token here>"},
     fetch,
   })
   const GitHubSchema = makeRemoteExecutableSchema({
