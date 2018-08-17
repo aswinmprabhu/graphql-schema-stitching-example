@@ -37,10 +37,12 @@ async function makeMergedSchema() {
     Mutation: {
       insert_user(parent, args, context, info){
         let newArgs = { objects:[] };
+        // Convert the email to lower case and append each object to the new arguments array
         for (const user of args.objects) {
           user.email = user.email.toLowerCase();
           newArgs.objects.push(user);
         }
+        // Delegate after sanitization
         return info.mergeInfo.delegateToSchema({
           schema: UserSchema,
           operation: 'mutation',
