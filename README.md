@@ -6,7 +6,7 @@ This can be achieved with the help of a custom resolver as illustrated below.
 
 Let us consider a case where the insert_user mutation has to be delegated to an underlying schema. Before delegating, the email in the data has to be converted to all lowercase at the parent Graphql API level.
 
-1. Create remote executable schemas with the makeRemoteExecutableSchema() function
+1. Create a remote executable schema with the makeRemoteExecutableSchema() function
 https://gist.github.com/aswinmprabhu/61829a0197e48f227651b33b64d1d8e2
 2. Create a custom resolver for our user case
 https://gist.github.com/aswinmprabhu/6b3902ed6193cefcd4f0c9c3902d7c3b
